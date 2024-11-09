@@ -1,0 +1,37 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+#form {
+  margin-bottom: 20px;
+}
+
+#contactList {
+  list-style: none;
+  padding: 0;
+}
+
+.contact-item {
+  cursor: pointer;
+  padding: 8px;
+  margin: 5px 0;
+  border: 1px solid #ddd;
+}
+
+.contact-item button {
+  background-color: #f83b3b;
+  color: #fff;
+  margin-left: 10px;
+  border: none;
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+#contactDetail {
+  margin-top: 20px;
+  border-top: 2px solid #333;
+  padding-top: 10px;
+}

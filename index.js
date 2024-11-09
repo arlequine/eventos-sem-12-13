@@ -1,67 +1,79 @@
 console.log('Hola mundo')
 
-// seleccionar el input y el contenedor de salida
-const textInput = document.getElementById('textInput')
-const output = document.getElementById('output')
+// Seleccionar los elementos necesarios
+const nameInput = document.getElementById('nameInput') 
+const phoneInput = document.getElementById('phoneInput') 
+const addContactButton = document.getElementById('addContactButton') 
+const contactList = document.getElementById('contactList') 
+const contactDetail = document.getElementById('contactDetail') 
+const contactName = document.getElementById('contactName') 
+const contactPhone = document.getElementById('contactPhone') 
+const closeDetailButton = document.getElementById('closeDetailButton')
 
-// escuchar el evento de "keydown" en el input
-textInput.addEventListener('keydown', (event) => {
-  // verificar si se presiona Enter
-  console.log('objeto event', event.key)
-  if (event.key === 'Enter') {
-    // Obtenemos el valor del Input
-    const text = textInput.value
+// Funcion para agregar nuevo contacto
+const addContact = () => {
+  const name = nameInput.value.trim()
+  const phone = phoneInput.value.trim()
 
+  if (name === '' || phone === '') {
+    alert("Porfavor, ingresa nombre y telefono")
+    return
+  }
 
-    //Creamos el customEvent con el nombre de "textSubmitted y le pasamos el texto en detail"
-    const textSubmitted = new CustomEvent('textSubmitted', {
-      detail: { text: text }
-    })
+  //crear un elemento de contacto en la lista
+  const contactItem = document.createElement('li')
+  contactItem.classList.add('contact-item')
+  contactItem.textContent = `${name} - ${phone}`
 
-    // despachamos el evento en el input
-    textInput.dispatchEvent(textSubmitted)
+  //crear img contacto
+  // const imgContact = document.createElement('img')
+  // imgContact.src = 'https://picsum.photos/200/300'
 
-    // limpiamos el campo de texto
-    textInput.value = ''
-  } 
-}) 
+  // boton  de borrar
+  const deleteButton = document.createElement('button')
+  deleteButton.textContent = "X"
+  deleteButton.addEventListener('click', (event) => {
+    event.stopPropagation() // Evitar que se abra el detalle del contacto
+    contactList.removeChild(contactItem)
+  })
 
+  //Evento para mostrar los detalles del contacto
+  contactItem.addEventListener('click', () => showContactDetails(name, phone))
 
-// Escuchar el evento personalizado "TexSubmitted"
+  //Agregar el boton de borrar y el contacto a la lista
+  // contactItem.appendChild(imgContact)
+  contactItem.appendChild(deleteButton)
+  contactList.appendChild(contactItem)
 
-textInput.addEventListener('textSubmitted', (event) => {
-  console.log(event)
-  // obtenemor el texto desde el objeto detail del evento
-  const submittedText = event?.detail?.text
+  // Limpiar el formulario 
+  nameInput.value = ''
+  phoneInput.value = ''
 
-
-  //Creamo nuevo elemento para ingresar el texto
-
-  const newTextElement = document.createElement('p')
-  newTextElement.textContent = `Texto ingresado ${submittedText}`
-
-  //Agregamos el nuevo texto al contenedor de salida
-  output.appendChild(newTextElement)
-})
-
-
-
-const btn = document.querySelector("button");
-
-function random(number) {
-  return Math.floor(Math.random() * (number + 1));
 }
 
-btn.addEventListener("click", () => {
-  const rndCol = `rgb(${random(255)}, ${random(255)}, ${random(255)})`;
-  document.body.style.backgroundColor = rndCol;
-});
+
+//Funcion para mostrar los detalles de un contacto
+const showContactDetails = (name, phone) => {
+  contactName.textContent = `Nombre: ${name}`
+  contactPhone.textContent = `Telefono: ${phone}`
+  contactDetail.classList.remove('hidden')
+}
 
 
+const closeContactDetails = () => {
+  contactDetail.classList.add('hidden')
+}
 
-textInput.addEventListener('focus', (event) => {
-  console.log('Focus', event)
+// Evento para agregar contacto al hacer clic en el botón
+addContactButton.addEventListener('click', addContact)
+
+// Evento para cerrar los detalles del contacto
+closeDetailButton.addEventListener('click', closeContactDetails)
+
+// Evento para agregar contacto al presionar Enter en el campo de telefono
+phoneInput.addEventListener('keypress', (event) => {
+  if (event.key === 'Enter') {
+    addContact()
+  }
 })
-textInput.addEventListener('blur', (event) => {
-  console.log('Blur', event)
-})
+

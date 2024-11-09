@@ -3,13 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
   <title>Document</title>
 </head>
 <body>
-  <h1>Custom Event</h1>
-  <input type="text" name="text" id="textInput">
-  <div id="output" ></div>
-  <button>Cambiar el color</button>
+  <h1>Administrador de Contactos</h1>
+  <!-- Formulario de registro de un contacto -->
+  <div id="form">
+    <input type="text" name="nameInput" id="nameInput" placeholder="Nombre del contacto">
+    <input type="text" name="phoneInput" id="phoneInput" placeholder="Numero de telfono">
+    <button id="addContactButton" >Agregar Contacto</button>
+  </div>
+
+
+  <!-- Lista de contacto -->
+   <h2>Lista de Contactos</h2>
+   <ul id="contactList"></ul>
+
+
+  <!-- Detalle de contacto -->
+  <div id="contactDetail" class="hidden">
+    <h3>Detalles del contacto</h3>
+    <p id="contactName"></p>
+    <p id="contactPhone"></p>
+    <button id="closeDetailButton">Cerrar</button>
+  </div>
+
 
   <script src="./index.js"></script>
 </body>
